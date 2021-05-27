@@ -1,21 +1,53 @@
 package com.sanket.stockmgr.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Brand {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="brand_Id")
 	private int brandId;
 	private String brandName;
 	private int distributor;
 	boolean active;
 	
-	public Brand() {
-		super();
-	}
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinTable(name="distributor_brand",
+	joinColumns = {@JoinColumn(name="branch_Id")},
+	inverseJoinColumns = {@JoinColumn(name="dist_Id")}
+	)
+	@JsonIgnore
+	private Set<Distributors> distributors  = new HashSet<>();
 	
+	public Brand() {
+	}
+
+	@JsonIgnore
+	public Set<Distributors> getDistributors() {
+		return distributors;
+	}
+	@JsonProperty
+	public void setDistributors(Set<Distributors> distributors) {
+		this.distributors = distributors;
+	}
 	public int getBrandId() {
 		return brandId;
 	}
@@ -44,6 +76,14 @@ public class Brand {
 	public String toString() {
 		return "Brand [brandId=" + brandId + ", brandName=" + brandName + ", distributor=" + distributor + ", active="
 				+ active + "]";
+	}
+
+	public Brand(int brandId, String brandName, int distributor, boolean active, Set<Distributors> distributors) {
+		this.brandId = brandId;
+		this.brandName = brandName;
+		this.distributor = distributor;
+		this.active = active;
+		this.distributors = distributors;
 	} 
 	
 	
