@@ -1,7 +1,12 @@
 package com.sanket.stockmgr.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Brand {
 
+	@Id
 	private int brandId;
 	private String brandName;
 	private int distributor;
