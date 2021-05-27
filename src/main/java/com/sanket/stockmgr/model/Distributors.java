@@ -27,7 +27,7 @@ public class Distributors {
 	private String distributorName;
 	private String city;
 	private long contactNumber;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinTable(name="distributor_brand",
 	joinColumns = {@JoinColumn(name="dist_Id")},
 	inverseJoinColumns = {@JoinColumn(name="branch_Id")}

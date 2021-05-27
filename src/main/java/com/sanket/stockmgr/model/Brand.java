@@ -29,7 +29,7 @@ public class Brand {
 	private int distributor;
 	boolean active;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinTable(name="distributor_brand",
 	joinColumns = {@JoinColumn(name="branch_Id")},
 	inverseJoinColumns = {@JoinColumn(name="dist_Id")}
