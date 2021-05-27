@@ -1,4 +1,4 @@
-package com.sanket.stockmger;
+package com.sanket.stockmgr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
